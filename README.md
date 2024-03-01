@@ -1,1 +1,1 @@
-# py_ds_algos
+# ds_and_algos
