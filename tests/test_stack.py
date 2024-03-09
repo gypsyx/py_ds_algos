@@ -27,20 +27,25 @@ def test_top():
 
 def test_pop():
     colors = Stack()
+    colors.dump()
     colors.push("yellow")
     colors.push("orange")
     colors.push("red")
+    colors.dump()
     assert colors.pop() == "red"
     assert colors.count() == 2
     assert colors.top() == "orange"
+    colors.dump()
 
     assert colors.pop() == "orange"
     assert colors.count() == 1
     assert colors.top() == "yellow"
+    colors.dump()
 
     assert colors.pop() == "yellow"
     assert colors.count() == 0
     assert colors.top() is None
+    colors.dump()
     
     with pytest.raises(IndexError):
         colors.pop()

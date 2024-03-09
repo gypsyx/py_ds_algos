@@ -42,4 +42,17 @@ class Stack:
         return self._count
 
     def dump(self):
-        pass
+        """Tool for debugging"""
+        if self.count() == 0:
+            print("[ ]")
+            return
+        
+        current = self._top
+        print("[ ", sep=" ", end=" ")
+        while current:
+            print(current.value, sep=" ", end=" ")
+            if not current.next:
+                print("]")
+                break
+
+            current = current.next
