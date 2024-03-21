@@ -1,5 +1,4 @@
 import pytest
-# from src.linked_list import LinkedList
 from src.double_linked_list import DoubleLinkedList
 
 @pytest.mark.parametrize("ListClass", [ DoubleLinkedList])

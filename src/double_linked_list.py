@@ -113,13 +113,13 @@ class DoubleLinkedList:
         current = self.begin
         while current:
             if current.value == value:
-                self._detach_node(current)
+                self.detach_node(current)
                 return index
             index += 1
             current = current.next
         return -1
 
-    def _detach_node(self, node):
+    def detach_node(self, node):
         """Detaches the node from the list"""
         prev = node.prev
         nxt = node.next

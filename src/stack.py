@@ -1,4 +1,9 @@
+"""
+A LIFO (Last In First Out) Stack data structure.
 
+As you can see below all stack operations are constant time, so
+it is a really fast datastructure.
+"""
 
 class StackNode:
     def __init__(self, value, nxt):
@@ -16,7 +21,11 @@ class Stack:
         self._count = 0
 
     def push(self, value):
-        """Adds a new value to the top of the stack"""
+        """
+        Adds a new value to the top of the stack
+        
+        Time: O(1), constant time. Fast
+        """
         
         if self._top is None:
             self._top = StackNode(value, None)
@@ -27,6 +36,11 @@ class Stack:
 
 
     def pop(self):
+        """
+        Pops the last added item.
+
+        Time: O(1), constant time. Fast.
+        """
         if self.count() == 0:
             raise IndexError("can't pop an empty stack")
         
@@ -42,7 +56,11 @@ class Stack:
         return self._count
 
     def dump(self):
-        """Tool for debugging"""
+        """
+        Tool for debugging
+        
+        Time: O(n).This is only for debugging.
+        """
         if self.count() == 0:
             print("[ ]")
             return
