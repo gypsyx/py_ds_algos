@@ -13,7 +13,7 @@ class LinkedListNode:
 
 class LinkedList:
     def __init__(self):
-        self.first_node: LinkedListNode = None
+        self.begin: LinkedListNode = None
         self.last_node: LinkedListNode = None
         self._count = 0
 
@@ -25,7 +25,7 @@ class LinkedList:
         node = LinkedListNode(value)
 
         if self.count == 0:
-            self.first_node = self.last_node = node
+            self.begin = self.last_node = node
         else:
             current_last = self.last_node
             self.last_node = node
@@ -47,14 +47,14 @@ class LinkedList:
         if self.last_node:
             self.last_node.next = None
         else:
-            self.first_node = self.last_node
+            self.begin = self.last_node
         self._decrease_count()
         return current_last.value
     
     def _previous_node(self, previous_to: LinkedListNode):
         """Returns the node before previous_to node."""
         
-        current = self.first_node
+        current = self.begin
         while True:
             if current.next == previous_to:
                 return current
@@ -85,11 +85,11 @@ class LinkedList:
         Tool for debugging.
         Time: O(n), traverses the entire list
         """
-        if self.first_node is None:
+        if self.begin is None:
             print("[ ]")
             return
         
-        current = self.first_node
+        current = self.begin
 
         print("[ ", sep=" ", end= " ")
         while True:
@@ -109,7 +109,7 @@ class LinkedList:
             raise IndexError("index out of range")
         
         counter = 0
-        current = self.first_node
+        current = self.begin
         
         while current:
             if counter == index:
@@ -124,7 +124,7 @@ class LinkedList:
         """
 
         index = 0
-        current = self.first_node
+        current = self.begin
         prev = None
 
         while current:
@@ -151,7 +151,7 @@ class LinkedList:
         Time: O(1), constant time op.
         """
         new_node = LinkedListNode(value)
-        self.first_node, new_node.next = new_node, self.first_node
+        self.begin, new_node.next = new_node, self.begin
         self._increase_count()
 
     def unshift(self):
@@ -159,8 +159,8 @@ class LinkedList:
         Removes and returns the first item in the list.
         Time: O(1), constant time op. Compare this to pop which is O(n).
         """
-        first = self.first_node
-        self.first_node = first.next if first else None
+        first = self.begin
+        self.begin = first.next if first else None
         self._decrease_count()
         return first.value if first else None
 
@@ -169,7 +169,7 @@ class LinkedList:
         Returns the first item in the list.
         Time: O(1)
         """
-        return self.first_node.value if self.first_node else None
+        return self.begin.value if self.begin else None
 
     def last(self):
         """

@@ -12,12 +12,14 @@ class DoubleLinkedList:
         self.end = None
         self._count = 0
 
-    def _invariant(self):
+    def invariant(self):
+        # NOTE: call this in tests, not in the code here directly - has a huge performance hit.
         # if list has one item begin=end=item
         # if list has >= 1 item, begin.prev = None, end.next = None
         # if list has 2 items, begin.next = end
         # if list has zero items beging = end = None
         # count should never be less than zero
+        print(f"INFO: running invariant")
         def count():
             """Internal count that traverses the list fully. The one exposed via public interface is more efficient but we need this for checks"""
             count = 0
@@ -62,7 +64,6 @@ class DoubleLinkedList:
             current_last.next = self.end
             self.end.prev = current_last
         self._count += 1
-        self._invariant()
 
     def pop(self):
         if self.count() == 0:
@@ -79,7 +80,6 @@ class DoubleLinkedList:
             self.begin = None
         
         self._count -= 1
-        self._invariant()
         return item.value
 
     def count(self):
@@ -90,7 +90,6 @@ class DoubleLinkedList:
         Returns the item at index
         Time: O(n), traverses the full list (in worst case)
         """
-        self._invariant()
         if index >= self.count() or index < 0:
             raise IndexError("index out of range")
         
@@ -155,7 +154,6 @@ class DoubleLinkedList:
             self.end.prev = self.begin
         
         self._count += 1
-        self._invariant()
 
 
     def unshift(self):
@@ -173,7 +171,6 @@ class DoubleLinkedList:
                 self.end.prev = None
 
         self._count -= 1
-        self._invariant()
         return first.value
 
     def first(self):

@@ -1,9 +1,13 @@
 import pytest
 from src.double_linked_list import DoubleLinkedList
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_push(ListClass):
-    colors = ListClass()
+@pytest.fixture(autouse=True)
+def colors():
+    linked_list = DoubleLinkedList()
+    yield linked_list
+    linked_list.invariant()
+
+def test_push(colors):
     colors.push("yellow")
     assert colors.count() == 1
     colors.dump()
@@ -15,10 +19,10 @@ def test_push(ListClass):
     colors.push("blue")
     assert colors.count() == 4
     colors.dump()
+    print(f"INFO: test complete")
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_pop_1_item(ListClass):
-    colors = ListClass()
+
+def test_pop_1_item(colors):
     # push/pop 1 item
     colors.push("yellow")
     assert colors.count() == 1
@@ -34,9 +38,8 @@ def test_pop_1_item(ListClass):
     assert colors.pop() == "yellow"
     assert colors.count() == 0
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_pop_2_items(ListClass):
-    colors = ListClass()
+
+def test_pop_2_items(colors):
     colors.push("yellow")
     colors.push("orange")
     assert colors.count() == 2
@@ -46,9 +49,7 @@ def test_pop_2_items(ListClass):
     assert colors.count() == 0
 
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_pop_3_items(ListClass):
-    colors = ListClass()
+def test_pop_3_items(colors):
     colors.push("yellow")
     colors.push("orange")
     colors.push("red")
@@ -61,9 +62,7 @@ def test_pop_3_items(ListClass):
     assert colors.count() == 0
 
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_get_after_push(ListClass):
-    colors = ListClass()
+def test_get_after_push(colors):
     colors.push("yellow")
     assert colors.get(0) == "yellow"
     
@@ -76,9 +75,8 @@ def test_get_after_push(ListClass):
     assert colors.get(1) == "orange"
     assert colors.get(2) == "red"
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_get_invalid_index(ListClass):
-    colors = ListClass() 
+
+def test_get_invalid_index(colors):
     with pytest.raises(IndexError):
         colors.get(-1)
 
@@ -86,9 +84,7 @@ def test_get_invalid_index(ListClass):
         colors.get(0)
 
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_get_after_pop(ListClass):
-    colors = ListClass()
+def test_get_after_pop(colors):
     for color in ["yellow", "orange", "red"]:
         colors.push(color)
 
@@ -109,9 +105,7 @@ def test_get_after_pop(ListClass):
         colors.get(0)
 
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_first(ListClass):
-    colors = ListClass()
+def test_first(colors):
     colors.push("yellow")
     assert colors.first() == "yellow"
     colors.push("orange")
@@ -119,16 +113,13 @@ def test_first(ListClass):
     # colors.shift("red")
     # assert colors.first() == "red"
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_shift_empty_list(ListClass):
-    colors = ListClass()
+
+def test_shift_empty_list(colors):
     colors.shift("orange") # [orange]
     assert colors.get(0) == "orange"
 
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_shift_non_empty_list(ListClass):
-    colors = ListClass()
+def test_shift_non_empty_list(colors):
     colors.push("yellow") # [yellow]
     assert colors.get(0) == "yellow"
     
@@ -141,22 +132,19 @@ def test_shift_non_empty_list(ListClass):
     assert colors.get(1) == "orange"
     assert colors.get(2) == "yellow"
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_unshift_empty_list(ListClass):
-    colors = ListClass()
+
+def test_unshift_empty_list(colors):
     assert colors.unshift() == None
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_unshift_one_item_list(ListClass):
-    colors = ListClass()
+
+def test_unshift_one_item_list(colors):
     colors.push("yellow")
     assert colors.unshift() == 'yellow'
     assert colors.count() == 0
     assert colors.first() == colors.last() == None
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_unshift_two_item_list(ListClass):
-    colors = ListClass()
+
+def test_unshift_two_item_list(colors):
     colors.push("yellow")
     colors.push("orange")
 
@@ -165,9 +153,7 @@ def test_unshift_two_item_list(ListClass):
     assert colors.first() == colors.last() == "orange"
 
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_unshift_many_items_list(ListClass):
-    colors = ListClass()
+def test_unshift_many_items_list(colors):
     colors.push("yellow")
     colors.push("orange")
     colors.push("red")
@@ -181,9 +167,7 @@ def test_unshift_many_items_list(ListClass):
     assert colors.unshift() == None
 
 
-@pytest.mark.parametrize("ListClass", [ DoubleLinkedList])
-def test_remove(ListClass):
-    colors = ListClass()
+def test_remove(colors):
     for color in ['yellow', 'orange', 'red', 'blue']:
         colors.push(color)
 
