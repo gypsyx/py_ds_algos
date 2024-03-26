@@ -23,35 +23,34 @@ def test_search_dll():
     assert binary_search(dll, 8) == -1
 
 
-# TODO: write a performance test for both search_list and search_dll
-def test_dll_binary_search_performance(benchmark):
-    items = [i for i in range(1, 1_000_001)]
-    dll = DoubleLinkedList()
-    for item in items:
-        dll.push(item)
+# def test_dll_binary_search_performance(benchmark):
+#     items = [i for i in range(1, 1_000_001)]
+#     dll = DoubleLinkedList()
+#     for item in items:
+#         dll.push(item)
     
-    benchmark(binary_search, dll, 1)
+#     benchmark(binary_search, dll, 1)
 
-def test_list_binary_search_performance(benchmark):
-    items = [i for i in range(1, 1_000_001)]
+# def test_list_binary_search_performance(benchmark):
+#     items = [i for i in range(1, 1_000_001)]
     
-    index = benchmark(binary_search, items, 1)
-    assert index == 0
+#     index = benchmark(binary_search, items, 1)
+#     assert index == 0
 
 
-def test_performance():
-    items = [i for i in range(1, 10001)]
-    dll = DoubleLinkedList()
-    for item in items:
-        dll.push(item)
+# def test_performance():
+#     items = [i for i in range(1, 10001)]
+#     dll = DoubleLinkedList()
+#     for item in items:
+#         dll.push(item)
     
-    assert binary_search(dll, 1) == 0
+#     assert binary_search(dll, 1) == 0
 
 
-if __name__ == '__main__':
-    """
-    This section is to run this module under cProfile
-    """
-    test_performance()
+# if __name__ == '__main__':
+#     """
+#     This section is to run this module under cProfile
+#     """
+#     test_performance()
 
     

@@ -2,7 +2,7 @@ from src.suffix_array import SuffixArray
 from tests.test_utils import sequences_equal
 import pytest
 
-def test_suffix_array():
+def test_suffix_array_construction():
     sa = SuffixArray("abracadabra")
     expected = ["abracadabra", "bracadabra", "racadabra", "acadabra", "cadabra", "adabra", "dabra", "abra", "bra", "ra", "a"]
     assert sequences_equal(expected, sa.suffixes)
@@ -19,6 +19,7 @@ def test_find_longest_substr():
     assert sa.find_longest_substr("abra") == "abracadabra"
     assert sa.find_longest_substr("ra") == "racadabra"
     assert sa.find_longest_substr("raca") == "racadabra"
+
 
 @pytest.mark.parametrize("input, expected", [
     ("abra", ['abra', 'abracadabra']), 

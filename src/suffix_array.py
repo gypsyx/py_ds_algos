@@ -6,14 +6,15 @@ class SuffixArray:
             raise ValueError("text is required")
         self.text = text
         self.suffixes = []
-        self._build_suffixes()
 
-    def _build_suffixes(self) -> None:
         for i in range(len(self.text)):
             self.suffixes.append(self.text[i:])
         self.suffixes.sort()
-        # print(f"sorted suffixes {self.suffixes}")
+        print(f"suffixes {self.suffixes}")
 
+
+    def search(self, pattern: str):
+        pass
 
     def find_shortest_substr(self, starts_with: str) -> str:
         """
