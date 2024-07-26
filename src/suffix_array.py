@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Tuple
 
 class SuffixArray:
     def __init__(self, text: str) -> None:
@@ -8,33 +8,44 @@ class SuffixArray:
         self.suffixes = []
 
         for i in range(len(self.text)):
-            self.suffixes.append(self.text[i:])
+            self.suffixes.append((self.text[i:], i))
         self.suffixes.sort()
         print(f"suffixes {self.suffixes}")
 
 
-    def search(self, pattern: str):
-        pass
-
-    def find_shortest_substr(self, starts_with: str) -> str:
+    def search(self, pattern: str) -> Tuple[int, int]:
         """
-        Find the shortest substring that starts with the given string
-
-        NOTE: results are based on suffixes only. So searches for susbstring that don't have
-        last character(s) won't be possible. For example searching for 'appl' in 'apple' returns
-        'apple'.
+        Perform a binary search and return the (i , j) where i is is index in the suffix
+        array and j is the index in the original string or (-1, -1) if not found.
         """
-        if not starts_with:
+        start = 0
+        end = len(self.suffixes) - 1
+ 
+        while start <= end:
+            m = (start + end) // 2
+            mid_val, starts_at = self.suffixes[m]
+
+            if mid_val > pattern:
+                end = m - 1
+            elif mid_val < pattern:
+                start = m + 1
+            else:
+                return m, starts_at
+        return -1, -1
+
+
+    def find_shortest_substr(self, pattern: str) -> str:
+        """
+        Find the shortest substring that starts with the given pattern
+
+        We find the exact match which is the shortest.
+        TODO: We don't address the case where there is no exact match.
+        """
+        if not pattern:
             raise ValueError(f"starts_with is required")
-        result = None
-
-        for suffix in self.suffixes:
-            if suffix.startswith(starts_with):
-                if not result:
-                    result = suffix
-                elif len(result) > len(suffix):
-                    result = suffix
-        return result
+        
+        _, i = self.search(pattern)
+        return i
 
 
     def find_longest_substr(self, starts_with: str) -> str:

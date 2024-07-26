@@ -3,7 +3,7 @@ from src.double_linked_list import DoubleLinkedList
 class Dictionary:
     def __init__(self, num_buckets=256):
         """Initializes a Map with given number of buckets"""
-        self.map = DoubleLinkedList()
+        self.map = DoubleLinkedList() # in real world this is an array
         for i in range(0, num_buckets):
             self.map.push(DoubleLinkedList())
 
